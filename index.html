@@ -1,0 +1,959 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeamFlow | Performance Hub</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #7650b5;
+    --primary-dark: #4c327b;
+    --lavender: #eee6fa;
+    --background: #f7f5fb;
+    --text: #29213a;
+    --muted: #91879f;
+    --border: #eee9f5;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background:
+        radial-gradient(circle at 5% 0%, #eee4fb 0, transparent 28%),
+        radial-gradient(circle at 100% 20%, #f0eafa 0, transparent 25%),
+        var(--background);
+    color: var(--text);
+    padding: 25px;
+}
+
+.container {
+    max-width: 1180px;
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #39245e, #68459a 60%, #9873c7);
+    color: white;
+    padding: 34px;
+    border-radius: 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 12px 30px #51347825;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid #ffffff20;
+    border-radius: 50%;
+    right: -65px;
+    top: -135px;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 1px solid #ffffff20;
+    border-radius: 50%;
+    right: 65px;
+    bottom: -125px;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand-icon {
+    width: 53px;
+    height: 53px;
+    display: grid;
+    place-items: center;
+    background: #ffffff20;
+    border: 1px solid #ffffff35;
+    border-radius: 15px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 30px;
+    letter-spacing: -.5px;
+}
+
+header p {
+    font-size: 13px;
+    color: #e6d9f7;
+    margin-top: 5px;
+}
+
+.header-tag {
+    border: 1px solid #ffffff40;
+    background: #ffffff15;
+    padding: 9px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* WEEK SELECTOR */
+
+.week-area, .section {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 23px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 20px #38215b09;
+}
+
+.week-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.week-heading h2, .section-title h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #483265;
+}
+
+.current-label {
+    background: #f1eafa;
+    color: #7049a2;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.week-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.week-btn {
+    background: #f7f4fb;
+    color: #806d99;
+    border: 1px solid #eee7f6;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.week-btn:hover {
+    background: #eee5fa;
+    transform: translateY(-2px);
+}
+
+.week-btn.active {
+    background: linear-gradient(135deg, #68439c, #9570c6);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 5px 13px #7650b544;
+}
+
+/* DAY DROPDOWN */
+
+.filter-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.filter-area label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #594574;
+}
+
+select {
+    background: #faf8fd;
+    border: 1px solid #e5d9f2;
+    color: #674496;
+    padding: 11px 16px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 170px;
+    cursor: pointer;
+}
+
+/* SUMMARY */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+    padding: 21px;
+    border-radius: 17px;
+    border: 1px solid var(--border);
+    box-shadow: 0 5px 18px #38215b09;
+    transition: .25s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 22px #38215b12;
+}
+
+.summary-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #f0eafa;
+    color: #7049a2;
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.summary-card:nth-child(2) .summary-icon {
+    background: #eaf3ff;
+    color: #4778b8;
+}
+
+.summary-card:nth-child(3) .summary-icon {
+    background: #e6f7ef;
+    color: #28865a;
+}
+
+.summary-card p {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.summary-card h2 {
+    color: #55377e;
+    font-family: 'Outfit', sans-serif;
+    font-size: 29px;
+    margin-top: 6px;
+}
+
+/* SECTION */
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.section-title h2 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.section-title p {
+    color: #998da6;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #eee8f5;
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid #f0ebf5;
+}
+
+th {
+    background: #f7f3fc;
+    color: #715193;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+th:first-child, td:first-child {
+    text-align: left;
+}
+
+.member-row td {
+    background: #faf7ff;
+    color: #64428e;
+    font-weight: 800;
+    padding: 14px;
+    font-size: 13px;
+    letter-spacing: .2px;
+}
+
+.task-name {
+    color: #655475;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.highlight-day {
+    background: #f0e8fc !important;
+}
+
+th.highlight-day {
+    background: #e6d9f7 !important;
+    color: #59348c;
+}
+
+/* CHECKBOX */
+
+.task-check {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #cbb9df;
+    border-radius: 7px;
+    cursor: pointer;
+    background: white;
+    vertical-align: middle;
+    position: relative;
+    transition: .2s;
+}
+
+.task-check:hover {
+    border-color: #7951ae;
+    transform: scale(1.1);
+}
+
+.task-check:checked {
+    background: #7951ae;
+    border-color: #7951ae;
+}
+
+.task-check:checked::after {
+    content: "✓";
+    color: white;
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    left: 4px;
+    top: -1px;
+}
+
+/* INDIVIDUAL PERFORMANCE */
+
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 17px;
+}
+
+.performance-card {
+    border: 1px solid #eae0f5;
+    border-radius: 17px;
+    padding: 21px;
+    background: linear-gradient(145deg, #fff, #faf7ff);
+    transition: .25s;
+}
+
+.performance-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px #38215b10;
+}
+
+.person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 19px;
+}
+
+.avatar {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, #68439c, #a282cf);
+    color: white;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 4px 10px #7650b533;
+}
+
+.person h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    color: #51356f;
+}
+
+.person p {
+    font-size: 11px;
+    color: #998aa7;
+    margin-top: 4px;
+}
+
+.efficiency-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #766987;
+}
+
+.efficiency-number {
+    color: #7049a2;
+    font-family: 'Outfit', sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.progress-bg {
+    width: 100%;
+    height: 11px;
+    background: #eee8f5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #68439c, #b18cdd);
+    border-radius: 20px;
+    transition: width .4s;
+}
+
+.performance-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 19px;
+    padding-top: 15px;
+    border-top: 1px solid #eee8f5;
+}
+
+.performance-details div {
+    color: #92859e;
+    font-size: 10px;
+}
+
+.performance-details strong {
+    display: block;
+    color: #5b4376;
+    font-size: 17px;
+    margin-top: 6px;
+}
+
+/* ACTIONS */
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button.action {
+    padding: 12px 17px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 12px;
+    transition: .2s;
+}
+
+button.action:hover {
+    transform: translateY(-2px);
+}
+
+.primary {
+    background: #7049a2;
+    color: white;
+}
+
+.secondary {
+    background: #eee5f8;
+    color: #7049a2;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #a193af;
+    font-size: 11px;
+    letter-spacing: .5px;
+}
+
+@media(max-width:600px) {
+    body { padding: 11px; }
+    header { padding: 23px 19px; }
+    header h1 { font-size: 25px; }
+    .header-tag { display: none; }
+    .section, .week-area { padding: 15px; }
+    .week-btn { padding: 10px 17px; }
+}
+
+@media print {
+    body { background: white; padding: 0; }
+    .actions, .week-tabs, .filter-area { display: none; }
+    .section, .summary-card, .performance-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <div class="header-content">
+        <div class="brand">
+            <div class="brand-icon">◈</div>
+            <div>
+                <h1>TeamFlow</h1>
+                <p>TEAM PERFORMANCE & TASK MANAGEMENT</p>
+            </div>
+        </div>
+        <div class="header-tag">● WORKSPACE ACTIVE</div>
+    </div>
+</header>
+
+<div class="week-area">
+    <div class="week-heading">
+        <h2>Weekly Overview</h2>
+        <span class="current-label" id="currentWeekLabel">Week 1</span>
+    </div>
+    <div class="week-tabs" id="weekTabs"></div>
+</div>
+
+<div class="filter-area">
+    <label for="daySelect">Day Filter</label>
+    <select id="daySelect" onchange="render()">
+        <option value="all">All Days</option>
+        <option value="0">Monday</option>
+        <option value="1">Tuesday</option>
+        <option value="2">Wednesday</option>
+        <option value="3">Thursday</option>
+        <option value="4">Friday</option>
+        <option value="5">Saturday</option>
+        <option value="6">Sunday</option>
+    </select>
+</div>
+
+<div class="summary">
+    <div class="summary-card">
+        <div class="summary-icon">♟</div>
+        <p>Total Team Members</p>
+        <h2>02</h2>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-icon">▤</div>
+        <p>Total Weekly Tasks</p>
+        <h2>42</h2>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-icon">✓</div>
+        <p>Completed Tasks</p>
+        <h2 id="completedCount">0</h2>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">
+        <h2>▦ Weekly Task Tracker</h2>
+        <p>Mark the checkbox when a task is completed.</p>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr id="tableHeader">
+                    <th>Team Member / Task</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
+            <tbody id="trackerTable"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">
+        <h2>▰ Individual Performance</h2>
+        <p>Separate weekly progress report for each team member.</p>
+    </div>
+
+    <div class="performance-grid" id="performanceArea"></div>
+</div>
+
+<div class="section">
+    <div class="section-title">
+        <h2>⚙ Workspace Tools</h2>
+        <p>Manage and export your tracking records.</p>
+    </div>
+
+    <div class="actions">
+        <button class="action primary" onclick="window.print()">
+            Print / Save PDF
+        </button>
+
+        <button class="action secondary" onclick="backupData()">
+            ↓ Download Backup
+        </button>
+
+        <button class="action secondary"
+            onclick="document.getElementById('restoreFile').click()">
+            ↑ Restore Backup
+        </button>
+
+        <input type="file" id="restoreFile"
+            accept=".json" hidden onchange="restoreData(event)">
+    </div>
+</div>
+
+<footer>TEAMFLOW • PERFORMANCE HUB • 2026</footer>
+
+</div>
+
+<script>
+const members = [
+    "Soha Chowdhury",
+    "Sayeda Prity"
+];
+
+const tasks = ["Task 1", "Task 2", "Task 3"];
+
+const days = [
+    "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday", "Sunday"
+];
+
+const STORAGE_KEY = "teamFlowTracker";
+
+let database = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "{}"
+);
+
+let selectedWeek = 1;
+
+function getWeekData() {
+    const key = "week" + selectedWeek;
+
+    if (!database[key]) {
+        database[key] = {};
+    }
+
+    return database[key];
+}
+
+function getStatus(member, task, day) {
+    const week = getWeekData();
+
+    if (!week[member]) {
+        week[member] = {};
+    }
+
+    return week[member][task + "_" + day] === true;
+}
+
+function saveData() {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(database)
+    );
+}
+
+function renderTabs() {
+    let html = "";
+
+    for (let i = 1; i <= 4; i++) {
+        html += `
+            <button
+                class="week-btn ${selectedWeek === i ? 'active' : ''}"
+                onclick="selectWeek(${i})">
+                Week ${i}
+            </button>
+        `;
+    }
+
+    document.getElementById("weekTabs").innerHTML = html;
+}
+
+function selectWeek(week) {
+    selectedWeek = week;
+    render();
+}
+
+function toggleTask(member, task, day, checked) {
+    const week = getWeekData();
+
+    if (!week[member]) {
+        week[member] = {};
+    }
+
+    week[member][task + "_" + day] = checked;
+
+    saveData();
+    render();
+}
+
+function renderTable() {
+    const selectedDay =
+        document.getElementById("daySelect").value;
+
+    let html = "";
+
+    members.forEach(member => {
+        html += `
+            <tr class="member-row">
+                <td colspan="8">${member}</td>
+            </tr>
+        `;
+
+        tasks.forEach((task, taskIndex) => {
+            html += `<tr>
+                <td class="task-name">${task}</td>`;
+
+            days.forEach((day, dayIndex) => {
+                const checked = getStatus(
+                    member, taskIndex, dayIndex
+                );
+
+                const highlight =
+                    selectedDay !== "all" &&
+                    Number(selectedDay) === dayIndex;
+
+                html += `
+                    <td class="${highlight ? 'highlight-day' : ''}">
+                        <input
+                            type="checkbox"
+                            class="task-check"
+                            ${checked ? "checked" : ""}
+                            aria-label="${member} ${task} ${day}"
+                            onchange="toggleTask(
+                                '${member}',
+                                ${taskIndex},
+                                ${dayIndex},
+                                this.checked
+                            )">
+                    </td>
+                `;
+            });
+
+            html += "</tr>";
+        });
+    });
+
+    document.getElementById("trackerTable").innerHTML = html;
+
+    document.querySelectorAll("#tableHeader th").forEach(
+        (th, index) => {
+            th.classList.toggle(
+                "highlight-day",
+                selectedDay !== "all" &&
+                Number(selectedDay) === index - 1
+            );
+        }
+    );
+}
+
+function calculate(member) {
+    let completed = 0;
+
+    for (let t = 0; t < 3; t++) {
+        for (let d = 0; d < 7; d++) {
+            if (getStatus(member, t, d)) {
+                completed++;
+            }
+        }
+    }
+
+    return {
+        completed,
+        remaining: 21 - completed,
+        efficiency: Math.round(completed / 21 * 100)
+    };
+}
+
+function renderPerformance() {
+    let html = "";
+    let totalCompleted = 0;
+
+    members.forEach((member, index) => {
+        const result = calculate(member);
+        totalCompleted += result.completed;
+
+        const initials = index === 0 ? "SC" : "SP";
+
+        html += `
+            <div class="performance-card">
+                <div class="person">
+                    <div class="avatar">${initials}</div>
+                    <div>
+                        <h3>${member}</h3>
+                        <p>Weekly Performance</p>
+                    </div>
+                </div>
+
+                <div class="efficiency-row">
+                    <span>Efficiency</span>
+                    <span class="efficiency-number">
+                        ${result.efficiency}%
+                    </span>
+                </div>
+
+                <div class="progress-bg">
+                    <div class="progress"
+                        style="width:${result.efficiency}%">
+                    </div>
+                </div>
+
+                <div class="performance-details">
+                    <div>
+                        Completed
+                        <strong>${result.completed}</strong>
+                    </div>
+                    <div>
+                        Remaining
+                        <strong>${result.remaining}</strong>
+                    </div>
+                    <div>
+                        Total Tasks
+                        <strong>21</strong>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("performanceArea").innerHTML = html;
+
+    document.getElementById("completedCount").textContent =
+        totalCompleted + "/42";
+}
+
+function render() {
+    renderTabs();
+
+    document.getElementById("currentWeekLabel").textContent =
+        "Week " + selectedWeek;
+
+    renderTable();
+    renderPerformance();
+}
+
+function backupData() {
+    const blob = new Blob(
+        [JSON.stringify(database, null, 2)],
+        {type: "application/json"}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "teamflow-backup.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function restoreData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+
+            if (
+                !imported ||
+                typeof imported !== "object" ||
+                Array.isArray(imported)
+            ) {
+                throw new Error("Invalid backup");
+            }
+
+            database = imported;
+            saveData();
+            render();
+
+            alert("Backup restored successfully!");
+        } catch {
+            alert("Invalid backup file!");
+        }
+
+        event.target.value = "";
+    };
+
+    reader.readAsText(file);
+}
+
+render();
+</script>
+</body>
+</html>
